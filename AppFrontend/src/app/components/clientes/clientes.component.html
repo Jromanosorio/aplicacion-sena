@@ -1,0 +1,78 @@
+<div class="row">
+    <form #clientForm="ngForm" (ngSubmit)="crearCliente(clientForm)" class="col s3">
+        <div class="row">
+            <h5>Informacion del cliente</h5>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <input placeholder="" autocomplete="off" type="hidden" name="_id" #_id="ngModel" [(ngModel)]="clientService.selectedClient._id">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <input placeholder="" autocomplete="off" type="number" name="clientcode" #id="ngModel" [(ngModel)]="clientService.selectedClient.clientcode">
+                <label for="clientcode">Codigo del Cliente</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <input placeholder="" autocomplete="off" type="text" name="name" #name="ngModel" [(ngModel)]="clientService.selectedClient.name">
+                <label for="name">Nombre</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <input placeholder="" autocomplete="off" type="text" name="profession" #profession="ngModel" [(ngModel)]="clientService.selectedClient.profession">
+                <label for="profession">Profesion</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <input placeholder="" autocomplete="off" type="text" name="address" #address="ngModel" [(ngModel)]="clientService.selectedClient.address">
+                <label for="address">Direccion</label>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light col s5 light-blue darken-1" type="button" (click)="resetForm(clientForm)">Limpiar datos</button>
+            <ng-container *ngIf="show; else thenShow">
+                <button class="btn waves-effect waves-light col s5 right  light-blue darken-1" type="button" (click)="crearCliente(clientForm)">Guardar</button>    
+            </ng-container>
+
+            <ng-template #thenShow>
+                <button class="btn waves-effect waves-light col s5 right  light-blue darken-1" type="button" (click)="actualizarCliente(clientForm)">Actualizar</button>
+            </ng-template>
+        </div>
+      </form>
+      <div class="col s9">
+        
+      <table class="centered">
+        <thead>
+          <tr>
+              <th>Codigo</th>
+              <th>Nombre</th>
+              <th>Profesion</th>
+              <th>Direccion</th>
+              <th>Opciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let client of clientService.clientList">
+            <td hidden>{{client._id}}</td>
+            <td>{{client.clientcode}}</td>
+            <td>{{client.name}}</td>
+            <td>{{client.profession}}</td>
+            <td>{{client.address}}</td>
+          <td class="row buttons">
+            <div class="col s12">
+                <button class="btn-small waves-effect waves-light col s12 red darken-3" type="button" (click)="eliminarCliente(client)">Eliminar</button>
+            </div>
+            <div class="col s12">
+                <button class="btn-small waves-effect waves-light col s12 blue" type="button" (click)="enviarFormulario(client, clientForm)">Actualizar</button>
+            </div>
+        </td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+</div>
